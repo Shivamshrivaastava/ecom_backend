@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Fetcher</title>
+</head>
+<body>
+  <h1>Fetch Products</h1>
+  <button id="fetchProducts">Fetch Products</button>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById('fetchProducts').addEventListener('click', async () => {
+      try {
+        const response = await fetch('/api/fetch-products', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            productNames: ["Laptop", "Smartphone"]
+          })
+        });
+
+        const data = await response.json();
+        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('output').textContent = 'Error fetching products';
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
